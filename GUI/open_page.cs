@@ -25,12 +25,16 @@ namespace Ex3
                 linkLabel1.Visible =false;
             }else if(Form1.flag == "User")
             {
-                //add Buttons 
+                button2.Visible = true;
+                button3.Visible = false;
+                linkLabel1.Visible = true;
 
             }
             else
             {
-                // add Buttons
+                button2.Visible = true;
+                button3.Visible = true;
+                linkLabel1.Visible = true;
 
             }
         
@@ -68,11 +72,17 @@ namespace Ex3
                 while (reader.Read())
                 {
                     richTextBox1.Text = richTextBox1.Text
-                        + "PublisherID: " + reader[0].ToString().Trim() + "\r\n"
-                        + "Description: " + reader[1].ToString().Trim() + "\r\n"
-                        + "Type: " + reader[2].ToString().Trim() + "\r\n"
-                        + "Level: " + reader[3].ToString().Trim() + "\r\n";
-                        
+                         + "RecipeID: " + reader[0].ToString().Trim() + "\r\n"
+                        + "PublisherID: " + reader[1].ToString().Trim() + "\r\n"
+                        + "SubFoodCategoryID: " + reader[2].ToString().Trim() + "\r\n"
+                        + "Title: " + reader[3].ToString().Trim() + "\r\n"
+                        + "Description: " + reader[4].ToString().Trim() + "\r\n"
+                         + "TotalTime: " + reader[5].ToString().Trim() + "\r\n"
+                        + "Type: " + reader[6].ToString().Trim() + "\r\n"
+                        + "Level: " + reader[7].ToString().Trim() + "\r\n"
+                        + "PublicationDate: " + reader[8].ToString().Trim() + "\r\n"
+                        + "______________________\r\n\r\n"; 
+
                 }
 
             }
@@ -80,12 +90,16 @@ namespace Ex3
 
         private void button2_Click(object sender, EventArgs e)
         {
-
+            this.Visible = false;
+            User_page newForm = new User_page();
+            newForm.Show();
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
-
+            this.Visible = false;
+            Admin_page newForm = new Admin_page();
+            newForm.Show();
         }
 
         private void linkLabel1_Click(object sender, EventArgs e)

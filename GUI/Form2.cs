@@ -28,13 +28,13 @@ namespace Ex3
         private void button1_Click(object sender, EventArgs e)
         {
             SqlConnection sqlCon = new SqlConnection(@"Data Source = DESKTOP-OG26RM1\SQLEXPRESS; 
-                                                       Initial Catalog = sqllab;
+                                                       Initial Catalog = food;
                                                        Integrated Security = True;");
             sqlCon.Open();
             SqlCommand command = new SqlCommand(null, sqlCon);
 
             command.CommandText =
-                "SELECT * FROM Log WHERE mail = @mail";
+                "SELECT * FROM Log WHERE email = @mail";
             SqlParameter mailParam = new SqlParameter("@mail", SqlDbType.VarChar, 20);
             Form1 newForm = new Form1();
             mailParam.Value = Form1.mailParamText;

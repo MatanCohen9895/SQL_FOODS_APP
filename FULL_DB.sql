@@ -36,7 +36,7 @@ create table Users(
     UserID smallint check(UserID>0),
 	email VARCHAR(20) NOT NULL,
    -- RecipeID smallint references Recipes(RecipeID),
-    Birthdate dateTime check(datediff(Year, Birthdate,getdate())>18) not null,
+    Birthdate dateTime not null,
     CityNum SMALLINT NOT null,
     FirstName varchar(30) not null,
     LastName varchar(30) not NULL, 
@@ -58,7 +58,7 @@ Primary key(PublisherID)
 -- Comments
 create table Comments (
 UserID smallint references Users(UserID),
-CommentDate dateTime check(datediff(day, CommentDate,getdate())>0),
+CommentDate dateTime,
 Rating tinyint check(Rating between 1 and 5),
 RecipeID smallint,
 PRIMARY KEY (UserID, CommentDate)
@@ -80,7 +80,7 @@ Description varchar(500) check(len(Description) >= 0) not null,
 TotalTime float check(TotalTime >0) not null,
 [Type] VARCHAR(10) check(Type in('starter','dish', 'dessert')) NOT NULL,
 [Level] VARCHAR(10) check(Level in('easy','medium', 'hard')) NOT NULL,
-PublicationDate dateTime check(datediff(day,PublicationDate,getdate())>0),
+PublicationDate dateTime,
 constraint [Fk_B_01] foreign key (UserID,CommentDate) references Comments(UserID,CommentDate),
 Primary key(RecipeID)
 )
@@ -128,9 +128,7 @@ PRIMARY KEY (PublisherID, CategorieID)
 	loginTime DATETIME NOT NULL, 
 	email VARCHAR(20),
 	StatusLogin VARCHAR(20),
-	UserID smallint check(UserID>0)NOT NULL,
-	PRIMARY KEY (UserID, loginTime),
-	FOREIGN KEY (UserID) REFERENCES Users (UserID)
+	PRIMARY KEY (email, loginTime),
 	);
 
 
@@ -150,24 +148,24 @@ INSERT INTO Answers (UserID,answerNum, answer, email, questionNum) VALUES ('123'
 INSERT INTO Answers (UserID,answerNum, answer, email, questionNum) VALUES ('234',2, 'Hezi', 'matan@gmail.com', 2);
 
 
-	INSERT INTO Log (loginTime, email, isSuccessLogin,UserID) VALUES (CONVERT(datetime, '1995-02-07 10:33:09'), 'ori@gmail.com', 0,'123');
-	INSERT INTO Log (loginTime, email, isSuccessLogin,UserID) VALUES (CONVERT(datetime, '1995-02-07 10:34:09'), 'ori@gmail.com', 1,'123');
-	INSERT INTO Log (loginTime, email, isSuccessLogin,UserID) VALUES (CONVERT(datetime, '2022-07-29 16:01:09'), 'ori@gmail.com', 0,'123');
-	INSERT INTO Log (loginTime, email, isSuccessLogin,UserID) VALUES (CONVERT(datetime, '2022-07-29 16:00:09'), 'ori@gmail.com', 0,'123');
-	INSERT INTO Log (loginTime, email, isSuccessLogin,UserID) VALUES (CONVERT(datetime, '2022-07-29 16:02:09'), 'ori@gmail.com', 0,'123');
-	INSERT INTO Log (loginTime, email, isSuccessLogin,UserID) VALUES (CONVERT(datetime, '2022-07-29 16:01:12'), 'ori@gmail.com', 1,'123');
+	INSERT INTO Log (loginTime, email, isSuccessLogin) VALUES (CONVERT(datetime, '1995-02-07 10:33:09'), 'ori@gmail.com', 0);
+	INSERT INTO Log (loginTime, email, isSuccessLogin) VALUES (CONVERT(datetime, '1995-02-07 10:34:09'), 'ori@gmail.com', 1);
+	INSERT INTO Log (loginTime, email, isSuccessLogin) VALUES (CONVERT(datetime, '2022-07-29 16:01:09'), 'ori@gmail.com', 0);
+	INSERT INTO Log (loginTime, email, isSuccessLogin) VALUES (CONVERT(datetime, '2022-07-29 16:00:09'), 'ori@gmail.com', 0);
+	INSERT INTO Log (loginTime, email, isSuccessLogin) VALUES (CONVERT(datetime, '2022-07-29 16:02:09'), 'ori@gmail.com', 0);
+	INSERT INTO Log (loginTime, email, isSuccessLogin) VALUES (CONVERT(datetime, '2022-07-29 16:01:12'), 'ori@gmail.com', 1);
 
-	INSERT INTO Log (loginTime, email, isSuccessLogin,StatusLogin,UserID) VALUES (CONVERT(datetime, '2022-08-21 19:49:15'), 'ori@gmail.com', 0,'Fail','123');
-	INSERT INTO Log (loginTime, email, isSuccessLogin,StatusLogin,UserID) VALUES (CONVERT(datetime, '2022-08-22 19:49:09'), 'nir@gmail.com', 0,'Block','345');
-	INSERT INTO Log (loginTime, email, isSuccessLogin,StatusLogin,UserID) VALUES (CONVERT(datetime, '2022-08-22 19:48:09'), 'nir@gmail.com', 0,'Block','345');
-	INSERT INTO Log (loginTime, email, isSuccessLogin,StatusLogin,UserID) VALUES (CONVERT(datetime, '2022-08-21 19:49:12'), 'ori@gmail.com', 1,'Success','123');
-	INSERT INTO Log (loginTime, email, isSuccessLogin,StatusLogin,UserID) VALUES (CONVERT(datetime, '2022-08-22 19:48:09'), 'matan@gmail.com', 0,'Block','234');
-	INSERT INTO Log (loginTime, email, isSuccessLogin,StatusLogin,UserID) VALUES (CONVERT(datetime, '2022-08-22 19:48:13'), 'nir@gmail.com', 0,'Block','345');
+	INSERT INTO Log (loginTime, email, isSuccessLogin,StatusLogin) VALUES (CONVERT(datetime, '2022-08-21 19:49:15'), 'ori@gmail.com', 0,'Fail');
+	INSERT INTO Log (loginTime, email, isSuccessLogin,StatusLogin) VALUES (CONVERT(datetime, '2022-08-22 19:49:09'), 'nir@gmail.com', 0,'Block');
+	INSERT INTO Log (loginTime, email, isSuccessLogin,StatusLogin) VALUES (CONVERT(datetime, '2022-08-22 19:48:09'), 'nir@gmail.com', 0,'Block');
+	INSERT INTO Log (loginTime, email, isSuccessLogin,StatusLogin) VALUES (CONVERT(datetime, '2022-08-21 19:49:12'), 'ori@gmail.com', 1,'Success');
+	INSERT INTO Log (loginTime, email, isSuccessLogin,StatusLogin) VALUES (CONVERT(datetime, '2022-08-22 19:48:09'), 'matan@gmail.com', 0,'Block');
+	INSERT INTO Log (loginTime, email, isSuccessLogin,StatusLogin) VALUES (CONVERT(datetime, '2022-08-22 19:48:13'), 'nir@gmail.com', 0,'Block');
 
-	INSERT INTO Log (loginTime, email, isSuccessLogin,StatusLogin,UserID) VALUES (CONVERT(datetime, '2022-07-24 16:01:12'), 'matan@gmail.com', 0,'Success','234');
-	INSERT INTO Log (loginTime, email, isSuccessLogin,StatusLogin,UserID) VALUES (CONVERT(datetime, '2022-07-24 16:05:12'), 'nir@gmail.com', 1,'Success','345');
-	INSERT INTO Log (loginTime, email, isSuccessLogin,StatusLogin,UserID) VALUES (CONVERT(datetime, '2022-08-26 12:52:00'), 'matan@gmail.com', 0,'Block','234');
-	INSERT INTO Log (loginTime, email, isSuccessLogin,StatusLogin,UserID) VALUES (CONVERT(datetime, '2022-08-26 12:52:00'), 'nir@gmail.com', 0,'Block','345');
+	INSERT INTO Log (loginTime, email, isSuccessLogin,StatusLogin) VALUES (CONVERT(datetime, '2022-07-24 16:01:12'), 'matan@gmail.com', 0,'Success');
+	INSERT INTO Log (loginTime, email, isSuccessLogin,StatusLogin) VALUES (CONVERT(datetime, '2022-07-24 16:05:12'), 'nir@gmail.com', 1,'Success');
+	INSERT INTO Log (loginTime, email, isSuccessLogin,StatusLogin) VALUES (CONVERT(datetime, '2022-08-26 12:52:00'), 'matan@gmail.com', 0,'Block');
+	INSERT INTO Log (loginTime, email, isSuccessLogin,StatusLogin) VALUES (CONVERT(datetime, '2022-08-26 12:52:00'), 'nir@gmail.com', 0,'Block');
 	
 
 
@@ -176,7 +174,7 @@ INSERT INTO Answers (UserID,answerNum, answer, email, questionNum) VALUES ('234'
  DROP PROCEDURE UpdateStatusLogin
 
 	CREATE PROCEDURE UpdateStatusLogin
-	@UserID smallint, @pass VARCHAR(20)
+	@email VARCHAR(20), @pass VARCHAR(20)
 	AS
 	DECLARE @isSuccessLogin AS BIT;
 	DECLARE @isBlocked AS BIT;
@@ -189,7 +187,7 @@ INSERT INTO Answers (UserID,answerNum, answer, email, questionNum) VALUES ('234'
 	(
 		SELECT COUNT(*)
 		FROM Log
-		WHERE isSuccessLogin = 0 AND UserID = @UserID AND DATEDIFF(minute, loginTime, CURRENT_TIMESTAMP) <= 3
+		WHERE isSuccessLogin = 0 AND email = @email AND DATEDIFF(minute, loginTime, CURRENT_TIMESTAMP) <= 3
 	)
 	PRINT @numOfTries
 	
@@ -199,7 +197,7 @@ INSERT INTO Answers (UserID,answerNum, answer, email, questionNum) VALUES ('234'
 		SELECT CASE WHEN EXISTS( 
 			SELECT *
 			FROM Users as U
-			WHERE U.UserID = @UserID AND U.password = @pass
+			WHERE U.email = @email AND U.password = @pass
 		)
 		THEN 1 --'True'
 		ELSE 0 --'False'
@@ -214,44 +212,44 @@ INSERT INTO Answers (UserID,answerNum, answer, email, questionNum) VALUES ('234'
 	(
 		SELECT COUNT(*)
 		FROM LOG
-		WHERE UserID = @UserID AND StatusLogin = 'Block' AND DATEDIFF(minute, loginTime, CURRENT_TIMESTAMP) < 20
+		WHERE email = @email AND StatusLogin = 'Block' AND DATEDIFF(minute, loginTime, CURRENT_TIMESTAMP) < 20
 	)
 
 	
 	IF (@isSuccessLogin = 1 AND @isBlocked < 1 ) 
-		INSERT INTO Log(loginTime, UserID, StatusLogin, isSuccessLogin)
-		VALUES(CURRENT_TIMESTAMP , @UserID, 'Success', @isSuccessLogin);
+		INSERT INTO Log(loginTime, email, StatusLogin, isSuccessLogin)
+		VALUES(CURRENT_TIMESTAMP , @email, 'Success', @isSuccessLogin);
 
 	-- Success
 	ELSE IF (@isSuccessLogin = 1 AND @numOfTries < 3) 
-		INSERT INTO Log(loginTime, UserID, StatusLogin, isSuccessLogin)
-		VALUES(CURRENT_TIMESTAMP , @UserID, 'Success', @isSuccessLogin);
+		INSERT INTO Log(loginTime, email, StatusLogin, isSuccessLogin)
+		VALUES(CURRENT_TIMESTAMP , @email, 'Success', @isSuccessLogin);
 
 	-- Fail
 	ELSE IF (@isSuccessLogin = 0 AND @numOfTries < 3)
-		INSERT INTO Log(loginTime, UserID, StatusLogin, isSuccessLogin)
-		VALUES(CURRENT_TIMESTAMP , @UserID, 'Fail', @isSuccessLogin);
+		INSERT INTO Log(loginTime, email, StatusLogin, isSuccessLogin)
+		VALUES(CURRENT_TIMESTAMP , @email, 'Fail', @isSuccessLogin);
 
 	-- Block
 	ELSE IF (@isSuccessLogin = 0 AND @numOfTries >= 3)
-		INSERT INTO Log(loginTime, UserID, StatusLogin, isSuccessLogin)
-		VALUES(CURRENT_TIMESTAMP , @UserID, 'Block', @isSuccessLogin);
+		INSERT INTO Log(loginTime, email, StatusLogin, isSuccessLogin)
+		VALUES(CURRENT_TIMESTAMP , @email, 'Block', @isSuccessLogin);
 	GO
 
 	EXEC UpdateStatusLogin @UserID='1111',@pass='1234';
 
 	DROP PROCEDURE GetIsSuccessLogin
 
- CREATE PROCEDURE GetIsSuccessLogin @UserID VARCHAR(20)
+ CREATE PROCEDURE GetIsSuccessLogin @email VARCHAR(20)
  AS
  DECLARE @isSuccessLoginVar AS VARCHAR(20);
  SET @isSuccessLoginVar = 'Block'
  SELECT @isSuccessLoginVar = L.StatusLogin
  FROM Log L 
- WHERE StatusLogin = 'Success' AND DATEDIFF(SECOND, loginTime, CURRENT_TIMESTAMP) < 30 AND L.UserID = @UserID
+ WHERE StatusLogin = 'Success' AND DATEDIFF(SECOND, loginTime, CURRENT_TIMESTAMP) < 30 AND L.email = @email
 
  IF (@isSuccessLoginVar != 'Success') 
-	INSERT INTO Log (loginTime, UserID, isSuccessLogin,StatusLogin) VALUES (CONVERT(datetime, CURRENT_TIMESTAMP), @UserID, 1,'Success');
+	INSERT INTO Log (loginTime, email, isSuccessLogin,StatusLogin) VALUES (CONVERT(datetime, CURRENT_TIMESTAMP), @email, 1,'Success');
 
 PRINT @isSuccessLoginVar
  GO
@@ -261,23 +259,23 @@ PRINT @isSuccessLoginVar
 
 DROP PROCEDURE AllBlockedUsers
 
- CREATE PROCEDURE AllBlockedUsers @UserID smallint
+ CREATE PROCEDURE AllBlockedUsers @email VARCHAR (20)
  AS
- SELECT distinct L.UserID 
- FROM Log L inner join Users U ON L.UserID=U.UserID
- WHERE StatusLogin = 'Block' AND DATEDIFF(minute, loginTime, CURRENT_TIMESTAMP) < 20 AND U.UserID != @UserID
+ SELECT distinct L.email 
+ FROM Log L inner join Users U ON L.email=U.email
+ WHERE StatusLogin = 'Block' AND DATEDIFF(minute, loginTime, CURRENT_TIMESTAMP) < 20 AND U.email != @email
  GO
 
 
 
 DROP PROCEDURE GetDateTimeofUsers
 
- CREATE PROCEDURE GetDateTimeofUsers @UserID smallint
+ CREATE PROCEDURE GetDateTimeofUsers @email VARCHAR (20)
  AS
- SELECT L.UserID,MAX(L.loginTime) AS max_date
+ SELECT L.email,MAX(L.loginTime) AS max_date
  FROM Log L
  WHERE  StatusLogin = 'Success'
- GROUP BY L.UserID
+ GROUP BY L.email
  GO
 
   EXEC GetDateTimeofUsers @UserID='1111';
@@ -285,11 +283,11 @@ DROP PROCEDURE GetDateTimeofUsers
 
 DROP PROCEDURE GetUserLoginHistory
 
- CREATE PROCEDURE GetUserLoginHistory @UserID smallint
+ CREATE PROCEDURE GetUserLoginHistory @email VARCHAR (20)
  AS
  SELECT L.*
  FROM Log L
- WHERE  L.UserID=@UserID
+ WHERE  L.email=@email
  GO
  EXEC GetUserLoginHistory @UserID='1111';
 
@@ -4682,4 +4680,9 @@ INSERT [dbo].[Comments] ([UserID], [CommentDate], [Rating], [RecipeID]) VALUES (
 GO
 INSERT [dbo].[Comments] ([UserID], [CommentDate], [Rating], [RecipeID]) VALUES (567, CAST(N'2018-09-08T00:00:00.000' AS DateTime), 4, 2)
 GO
+INSERT [dbo].[Comments] ([UserID], [CommentDate], [Rating], [RecipeID]) VALUES (482, CAST(N'2021-03-03T00:00:00.000' AS DateTime), 2, 5)
+GO
+INSERT [dbo].[Comments] ([UserID], [CommentDate], [Rating], [RecipeID]) VALUES (567, CAST(N'2018-05-08T00:00:00.000' AS DateTime), 1, 2)
+GO
+
 
