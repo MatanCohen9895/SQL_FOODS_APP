@@ -44,7 +44,7 @@ namespace Ex3
         {
             // Set questions on form
             SqlConnection sqlCon = new SqlConnection(@"Data Source = DESKTOP-OG26RM1\SQLEXPRESS; 
-                                                       Initial Catalog = sqllab;
+                                                       Initial Catalog = food;
                                                        Integrated Security = True;");
             sqlCon.Open();
             SqlCommand command = new SqlCommand("SELECT TOP 5 * FROM Questions ORDER BY NEWID()", sqlCon);
@@ -100,29 +100,39 @@ namespace Ex3
         {
             // Add user to db
             SqlConnection sqlCon = new SqlConnection(@"Data Source = DESKTOP-OG26RM1\SQLEXPRESS; 
-                                                       Initial Catalog = sqllab;
+                                                       Initial Catalog = food;
                                                        Integrated Security = True;");
             sqlCon.Open();
             SqlCommand command = new SqlCommand(null, sqlCon);
 
             command.CommandText =
-                "INSERT INTO Users(mail,firstName,lastName,birthDate,pass,userType)" +
-                "VALUES(@mail, @firstName, @lastName, @birthDate, @pass, 'admin')";
+                "INSERT INTO Users(email,firstName,lastName,birthDate,password,userType,UserID,CityNum,Gender)" +
+                "VALUES(@mail, @firstName, @lastName, @birthDate, @pass, 'LoginUser',@UserID,@CityNum,@Gender)";
             SqlParameter mail = new SqlParameter("@mail", SqlDbType.VarChar, 20);
             SqlParameter firstName = new SqlParameter("@firstName", SqlDbType.VarChar, 20);
             SqlParameter lastName = new SqlParameter("@lastName", SqlDbType.VarChar, 20);
             SqlParameter birthDate = new SqlParameter("@birthDate", SqlDbType.DateTime, 0);
             SqlParameter pass = new SqlParameter("@pass", SqlDbType.VarChar, 20);
+            SqlParameter UserID = new SqlParameter("@UserID", SqlDbType.SmallInt);
+            SqlParameter CityNum = new SqlParameter("@CityNum", SqlDbType.SmallInt);
+            SqlParameter Gender = new SqlParameter("@Gender", SqlDbType.Char,1);
             mail.Value = textMail.Text;
             firstName.Value = textFirstname.Text;
             lastName.Value = textLastname.Text;
             birthDate.Value = textBirthdate.Text;
             pass.Value = textPass.Text;
+            UserID.Value = Int16.Parse( textuserid.Text);
+            CityNum.Value = Int16.Parse(textcitynum.Text);
+            Gender.Value = combogender.Text;
+
             command.Parameters.Add(mail);
             command.Parameters.Add(firstName);
             command.Parameters.Add(lastName);
             command.Parameters.Add(birthDate);
             command.Parameters.Add(pass);
+            command.Parameters.Add(UserID);
+            command.Parameters.Add(CityNum);
+            command.Parameters.Add(Gender);
 
             command.Prepare();
             command.ExecuteNonQuery();
@@ -130,16 +140,18 @@ namespace Ex3
             // Add answers to db
             int counter = 0;
             command.CommandText =
-                "INSERT INTO Answers(answer, mail, questionNum)" +
-                "VALUES(@answer, @mail2, @questionNum)";
+                "INSERT INTO Answers(answer, email, questionNum,UserID)" +
+                "VALUES(@answer, @mail2, @questionNum,@UserIDa)";
             SqlParameter mail2 = new SqlParameter("@mail2", SqlDbType.VarChar, 20);
             SqlParameter answer = new SqlParameter("@answer", SqlDbType.VarChar, 20);
             SqlParameter questionNum = new SqlParameter("@questionNum", SqlDbType.VarChar, 20);
+            SqlParameter UserIDa = new SqlParameter("@UserIDa", SqlDbType.SmallInt);
 
+            UserIDa.Value = textuserid.Text;
             command.Parameters.Add(mail2);
             command.Parameters.Add(answer);
             command.Parameters.Add(questionNum);
-
+            command.Parameters.Add(UserIDa);
             command.Prepare();
             foreach (Questions item in questions)
             {

@@ -112,12 +112,10 @@ PRIMARY KEY (PublisherID, CategorieID)
 
 	-- Answers
 	CREATE TABLE Answers (
-	answerNum INTEGER NOT NULL,
 	answer VARCHAR(50) NOT NULL,
 	email VARCHAR(20) NOT NULL,
 	questionNum INTEGER NOT NULL,
 	UserID smallint check(UserID>0),
-	PRIMARY KEY (answerNum),
 	FOREIGN KEY (questionNum) REFERENCES Questions (questionNum),
 	FOREIGN KEY (UserID) REFERENCES Users (UserID)
 	);
@@ -143,9 +141,13 @@ PRIMARY KEY (PublisherID, CategorieID)
 	
 INSERT INTO Questions (questionNum, qusetion) VALUES (1, 'What is your mother name?');
 INSERT INTO Questions (questionNum, qusetion) VALUES (2, 'What is your father name?');
+INSERT INTO Questions (questionNum, qusetion) VALUES (3, 'What is your dog name?');
+INSERT INTO Questions (questionNum, qusetion) VALUES (4, 'What is your teacher name?');
+INSERT INTO Questions (questionNum, qusetion) VALUES (5, 'What is your favorit color?');
+INSERT INTO Questions (questionNum, qusetion) VALUES (6, 'What is your hobit?');
 
-INSERT INTO Answers (UserID,answerNum, answer, email, questionNum) VALUES ('123',1, 'Ruti', 'ori@gmail.com', 1);
-INSERT INTO Answers (UserID,answerNum, answer, email, questionNum) VALUES ('234',2, 'Hezi', 'matan@gmail.com', 2);
+INSERT INTO Answers (UserID, answer, email, questionNum) VALUES ('123', 'Ruti', 'ori@gmail.com', 1);
+INSERT INTO Answers (UserID, answer, email, questionNum) VALUES ('234', 'Hezi', 'matan@gmail.com', 2);
 
 
 	INSERT INTO Log (loginTime, email, isSuccessLogin) VALUES (CONVERT(datetime, '1995-02-07 10:33:09'), 'ori@gmail.com', 0);

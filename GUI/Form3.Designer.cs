@@ -57,6 +57,12 @@ namespace Ex3
             this.question5 = new System.Windows.Forms.Label();
             this.answer5 = new System.Windows.Forms.TextBox();
             this.label15 = new System.Windows.Forms.Label();
+            this.Userid = new System.Windows.Forms.Label();
+            this.textuserid = new System.Windows.Forms.TextBox();
+            this.Citynum = new System.Windows.Forms.Label();
+            this.textcitynum = new System.Windows.Forms.TextBox();
+            this.Gender = new System.Windows.Forms.Label();
+            this.combogender = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // lblCounter
@@ -329,11 +335,69 @@ namespace Ex3
             this.label15.TabIndex = 35;
             this.label15.Text = "Question 5 - ";
             // 
+            // Userid
+            // 
+            this.Userid.AutoSize = true;
+            this.Userid.Location = new System.Drawing.Point(151, 477);
+            this.Userid.Name = "Userid";
+            this.Userid.Size = new System.Drawing.Size(83, 25);
+            this.Userid.TabIndex = 38;
+            this.Userid.Text = "User ID";
+            // 
+            // textuserid
+            // 
+            this.textuserid.Location = new System.Drawing.Point(294, 477);
+            this.textuserid.Name = "textuserid";
+            this.textuserid.Size = new System.Drawing.Size(100, 31);
+            this.textuserid.TabIndex = 39;
+            // 
+            // Citynum
+            // 
+            this.Citynum.AutoSize = true;
+            this.Citynum.Location = new System.Drawing.Point(151, 522);
+            this.Citynum.Name = "Citynum";
+            this.Citynum.Size = new System.Drawing.Size(96, 25);
+            this.Citynum.TabIndex = 40;
+            this.Citynum.Text = "City num";
+            // 
+            // textcitynum
+            // 
+            this.textcitynum.Location = new System.Drawing.Point(294, 522);
+            this.textcitynum.Name = "textcitynum";
+            this.textcitynum.Size = new System.Drawing.Size(100, 31);
+            this.textcitynum.TabIndex = 41;
+            // 
+            // Gender
+            // 
+            this.Gender.AutoSize = true;
+            this.Gender.Location = new System.Drawing.Point(151, 570);
+            this.Gender.Name = "Gender";
+            this.Gender.Size = new System.Drawing.Size(83, 25);
+            this.Gender.TabIndex = 42;
+            this.Gender.Text = "Gender";
+            // 
+            // combogender
+            // 
+            this.combogender.FormattingEnabled = true;
+            this.combogender.Items.AddRange(new object[] {
+            "M",
+            "F"});
+            this.combogender.Location = new System.Drawing.Point(294, 570);
+            this.combogender.Name = "combogender";
+            this.combogender.Size = new System.Drawing.Size(121, 33);
+            this.combogender.TabIndex = 43;
+            // 
             // Form3
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1371, 764);
+            this.Controls.Add(this.combogender);
+            this.Controls.Add(this.Gender);
+            this.Controls.Add(this.textcitynum);
+            this.Controls.Add(this.Citynum);
+            this.Controls.Add(this.textuserid);
+            this.Controls.Add(this.Userid);
             this.Controls.Add(this.question5);
             this.Controls.Add(this.answer5);
             this.Controls.Add(this.label15);
@@ -401,5 +465,11 @@ namespace Ex3
         private System.Windows.Forms.Label question5;
         private System.Windows.Forms.TextBox answer5;
         private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.Label Userid;
+        private System.Windows.Forms.TextBox textuserid;
+        private System.Windows.Forms.Label Citynum;
+        private System.Windows.Forms.TextBox textcitynum;
+        private System.Windows.Forms.Label Gender;
+        private System.Windows.Forms.ComboBox combogender;
     }
 }
